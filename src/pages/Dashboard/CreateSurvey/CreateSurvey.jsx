@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import axios from "axios";
 import useAxiosPublic from "../../../components/Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 
 const CreateSurvey = () => {
   const axiosPublic = useAxiosPublic();
-  const [questions, setQuestions] = useState([]);
-  const [question, setQuestion] = useState({
-    title: "",
-    description: "",
-  });
   const [survey, setSurvey] = useState({
     title: "",
     description: "",
     category: "",
     deadline: "",
+    questions: [
+      {
+        title: "",
+        description: "",
+        options: { yes: 0, no: 0 },
+      },
+    ],
   });
 
   // Predefined categories
@@ -31,24 +32,11 @@ const CreateSurvey = () => {
     setSurvey({ ...survey, [name]: value });
   };
 
-  const handleQuestionChange = (e) => {
+  const handleQuestionChange = (e, index) => {
     const { name, value } = e.target;
-    setQuestion({ ...question, [name]: value });
-  };
-
-  const addQuestion = () => {
-    if (question.title && question.description) {
-      setQuestions([
-        ...questions,
-        {
-          ...question,
-          options: { yes: 0, no: 0 },
-        },
-      ]);
-      setQuestion({ title: "", description: "" });
-    } else {
-      alert("Please fill in both the question title and description.");
-    }
+    const updatedQuestions = [...survey.questions];
+    updatedQuestions[index] = { ...updatedQuestions[index], [name]: value };
+    setSurvey({ ...survey, questions: updatedQuestions });
   };
 
   const handleSubmit = async (e) => {
@@ -56,8 +44,7 @@ const CreateSurvey = () => {
 
     const surveyData = {
       ...survey,
-      questions,
-      status: "publish", // Default value added on the backend
+      status: "publish", // Default status handled here
     };
 
     try {
@@ -66,12 +53,20 @@ const CreateSurvey = () => {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Your work has been saved",
+          title: "Survey successfully created!",
           showConfirmButton: false,
           timer: 1500,
         });
+        setSurvey({
+          title: "",
+          description: "",
+          category: "",
+          deadline: "",
+          questions: [
+            { title: "", description: "", options: { yes: 0, no: 0 } },
+          ],
+        });
       }
-      console.log(response.data, surveyData)
     } catch (error) {
       console.error("Error creating survey:", error);
       alert("There was an error creating the survey.");
@@ -79,113 +74,120 @@ const CreateSurvey = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-12">
-      <h1 className="text-3xl font-bold mb-6">Create a New Survey</h1>
+    <div className="max-w-5xl mx-auto py-12 px-4">
+      <h1 className="text-4xl font-bold text-center text-indigo-600 mb-8 animate-fade-in">
+        Create a New Survey
+      </h1>
       <form
         onSubmit={handleSubmit}
-        className="space-y-6 bg-white p-6 shadow-md rounded-lg"
+        className="space-y-8 bg-white shadow-lg rounded-lg p-8 animate-slide-up"
       >
         {/* Survey Details */}
-        <div>
-          <label className="block font-semibold mb-1">Survey Title</label>
-          <input
-            type="text"
-            name="title"
-            value={survey.title}
-            onChange={handleSurveyChange}
-            className="w-full p-2 border rounded-md"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-semibold mb-1">Survey Description</label>
-          <textarea
-            name="description"
-            value={survey.description}
-            onChange={handleSurveyChange}
-            className="w-full p-2 border rounded-md"
-            rows="4"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-semibold mb-1">Category</label>
-          <select
-            name="category"
-            value={survey.category}
-            onChange={handleSurveyChange}
-            className="w-full p-2 border rounded-md"
-            required
-          >
-            <option value="">Select a Category</option>
-            {categories.map((cat, index) => (
-              <option key={index} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block font-semibold mb-1">Deadline</label>
-          <input
-            type="date"
-            name="deadline"
-            value={survey.deadline}
-            onChange={handleSurveyChange}
-            className="w-full p-2 border rounded-md"
-            required
-          />
+        <div className="space-y-4">
+          <div>
+            <label className="block font-semibold text-gray-700">
+              Survey Title
+            </label>
+            <input
+              type="text"
+              name="title"
+              value={survey.title}
+              onChange={handleSurveyChange}
+              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              placeholder="Enter the survey title"
+              required
+            />
+          </div>
+          <div>
+            <label className="block font-semibold text-gray-700">
+              Survey Description
+            </label>
+            <textarea
+              name="description"
+              value={survey.description}
+              onChange={handleSurveyChange}
+              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              rows="4"
+              placeholder="Enter a brief description of the survey"
+              required
+            />
+          </div>
+          <div>
+            <label className="block font-semibold text-gray-700">Category</label>
+            <select
+              name="category"
+              value={survey.category}
+              onChange={handleSurveyChange}
+              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              required
+            >
+              <option value="">Select a Category</option>
+              {categories.map((cat, index) => (
+                <option key={index} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block font-semibold text-gray-700">Deadline</label>
+            <input
+              type="date"
+              name="deadline"
+              value={survey.deadline}
+              onChange={handleSurveyChange}
+              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              required
+            />
+          </div>
         </div>
 
-        {/* Question Form */}
+        {/* Questions Section */}
         <div>
-          <h2 className="text-xl font-bold mb-4">Add Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <label className="block font-semibold mb-1">Question Title</label>
-              <input
-                type="text"
-                name="title"
-                value={question.title}
-                onChange={handleQuestionChange}
-                className="w-full p-2 border rounded-md"
-                required
-              />
-            </div>
-            <div>
-              <label className="block font-semibold mb-1">
-                Question Description
-              </label>
-              <textarea
-                name="description"
-                value={question.description}
-                onChange={handleQuestionChange}
-                className="w-full p-2 border rounded-md"
-                rows="2"
-                required
-              />
-            </div>
-            <button
-              type="button"
-              onClick={addQuestion}
-              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+          <h2 className="text-2xl font-bold text-indigo-600 mb-4">
+            Questions
+          </h2>
+          {survey.questions.map((q, index) => (
+            <div
+              key={index}
+              className="p-4 border rounded-lg bg-gray-50 shadow-sm hover:shadow-lg transition duration-200 mb-4"
             >
-              Add Question
-            </button>
-          </div>
-          <ul className="mt-4 space-y-2">
-            {questions.map((q, index) => (
-              <li key={index} className="p-3 border rounded-md bg-gray-100">
-                <strong>{q.title}</strong> - {q.description}
-              </li>
-            ))}
-          </ul>
+              <div>
+                <label className="block font-semibold text-gray-700">
+                  Question Title
+                </label>
+                <input
+                  type="text"
+                  name="title"
+                  value={q.title}
+                  onChange={(e) => handleQuestionChange(e, index)}
+                  className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+                  placeholder="Enter the question title"
+                  required
+                />
+              </div>
+              <div className="mt-4">
+                <label className="block font-semibold text-gray-700">
+                  Question Description
+                </label>
+                <textarea
+                  name="description"
+                  value={q.description}
+                  onChange={(e) => handleQuestionChange(e, index)}
+                  className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+                  rows="2"
+                  placeholder="Enter the question description"
+                  required
+                />
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Submit Button */}
         <button
           type="submit"
-          className="px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          className="w-full py-3 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition duration-200"
         >
           Submit Survey
         </button>

@@ -6,8 +6,7 @@ const Navbar = () => {
 
     const Links = <>
     <li><NavLink to={'/'}>Home</NavLink></li>
-    <li><NavLink to={'/surverys'}>Survery Page</NavLink></li>
-    <li><NavLink to={'/surveryDetails'}>Survery Details</NavLink></li>
+    <li><NavLink to={'/surverys'}>Survery </NavLink></li>
     <li><NavLink to={'/price'}>Pricing Page</NavLink></li>
     <li><NavLink to={'/dashboard/surveyor/create'}>Dashboard</NavLink></li>
 
