@@ -7,7 +7,7 @@ import Root from '../Root/Root';
 import Home from '../components/Home/Home';
 import SurveryPage from '../pages/SurveryPage/SurveryPage';
 import Dashboard from './Dashboard';
-import Create from '../pages/Dashboard/Create/Create';
+import Create from '../pages/Dashboard/CreateSurvey/CreateSurvey';
 import UpdateSurvery from '../pages/Dashboard/UpdateSurvery/UpdateSurvery';
 
 const router = createBrowserRouter([
