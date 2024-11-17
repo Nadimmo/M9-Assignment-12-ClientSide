@@ -6,6 +6,9 @@ import {
 import Root from '../Root/Root';
 import Home from '../components/Home/Home';
 import SurveryPage from '../pages/SurveryPage/SurveryPage';
+import Dashboard from './Dashboard';
+import Create from '../pages/Dashboard/Create/Create';
+import UpdateSurvery from '../pages/Dashboard/UpdateSurvery/UpdateSurvery';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +23,21 @@ const router = createBrowserRouter([
             path:'/surverys',
             element:<SurveryPage></SurveryPage>
         }
+    ]
+   
+  },
+  {
+    path:'/dashboard',
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path:'surveyor/create',
+        element:<Create></Create>
+      },
+      {
+        path:'surveyor/update',
+        element: <UpdateSurvery></UpdateSurvery>
+      }
     ]
   }
 ]);
