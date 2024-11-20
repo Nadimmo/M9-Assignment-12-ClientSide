@@ -10,6 +10,8 @@ import Dashboard from './Dashboard';
 import Create from '../pages/Dashboard/CreateSurvey/CreateSurvey';
 import UpdateSurvery from '../pages/Dashboard/UpdateSurvery/UpdateSurvery';
 import SurveryDetails from '../pages/SurveryDetails/SurveryDetails';
+import Register from '../components/Register/Register';
+import Login from '../components/Login/Login';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
           element: <SurveryDetails></SurveryDetails>,
           loader: ({params})=>fetch(`http://localhost:5000/surverys/${params.id}`)
 
+        },
+        {
+          path:'/register',
+          element:<Register></Register>
+        },
+        {
+          path:'/login',
+          element:<Login></Login>
         }
     ]
    
