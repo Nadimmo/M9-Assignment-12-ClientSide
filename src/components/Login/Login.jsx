@@ -1,35 +1,96 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc"; // Google icon
 import { FaGithub } from "react-icons/fa"; // GitHub icon
 import { SiMicrosoft } from "react-icons/si"; // Microsoft icon
 import axios from "axios";
 import { Link } from "react-router-dom";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const {login,loginWithGoogle,loginWithGithub,user} = useContext(AuthContext)
+  const axiosPublic = useAxiosPublic()
 
-  // Handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+ 
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = e.target
+    const email = form.email.value
+    const password = form.password.value
+    login(email,password)
+    .then(res =>{
+      if(res.user){
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `User Login Successfully`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        form.reset()
+      }
+    })
+    .catch(err =>{
+      alert(err.message)
+    })
+
+
     // console.log(formData)
 
     // try {
-    //   const response = await axios.post("http://localhost:5000/login", formData);
+    //   const response = await axiosPublic.post("http://localhost:5000/login", formData);
     //   alert(response.data); // Show success message
     // } catch (error) {
     //   console.error("Error logging in", error);
     //   alert("Login failed.");
     // }
   };
+
+
+  const handlerGoogle = (e)=>{
+    e.preventDefault()
+    loginWithGoogle()
+    .then(res =>{
+      // console.log(res.data)
+      if(res.user){
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: ` User Login Successfully`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    })
+    .catch(err =>{
+      alert(err.message)
+    })
+  }
+
+  const handlerGithub = (e)=>{
+    e.preventDefault()
+    loginWithGithub()
+    .then(res =>{
+      // console.log(res.data)
+      if(res.user){
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `User Login Successfully`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    })
+    .catch(err =>{
+      alert(err.message)
+    })
+  }
+
+
 
   return (
     <div className="flex bg-[#2b2738] rounded-2xl border-2 shadow-xl p-5">
@@ -51,8 +112,6 @@ const Login = () => {
               type="email"
               name="email"
               placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
               className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
@@ -63,8 +122,6 @@ const Login = () => {
               type="password"
               name="password"
               placeholder="Enter your password"
-              value={formData.password}
-              onChange={handleChange}
               className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
@@ -91,6 +148,7 @@ const Login = () => {
          {/* Social Buttons */}
          <div className="lg:grid grid-cols-2 gap-4">
           <button
+          onClick={handlerGoogle}
             type="button"
             className="flex items-center justify-center w-full px-4 py-2  border text-white border-gray-300 rounded-lg hover:bg-[#0d0d11]"
           >
@@ -98,6 +156,7 @@ const Login = () => {
             Sign in with Google
           </button>
           <button
+          onClick={handlerGithub}
             type="button"
             className="lg:mt-0 mt-2 flex items-center justify-center w-full px-4 py-2  border text-white border-gray-300 rounded-lg hover:bg-[#0d0d11]"
           >

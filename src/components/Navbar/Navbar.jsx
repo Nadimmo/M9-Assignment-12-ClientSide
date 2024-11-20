@@ -1,18 +1,45 @@
-import React from "react";
+import React, { useContext } from "react";
 import { SiLimesurvey } from "react-icons/si";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
 
-    const Links = <>
-    <li><NavLink to={'/'}>Home</NavLink></li>
-    <li><NavLink to={'/surverys'}>Survery </NavLink></li>
-    <li><NavLink to={'/price'}>Pricing Page</NavLink></li>
-    <li><NavLink to={'/dashboard/surveyor/create'}>Dashboard</NavLink></li>
-
-
+  const Links = (
+    <>
+      <li>
+        <NavLink to={"/"}>Home</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/surverys"}>Survery </NavLink>
+      </li>
+      <li>
+        <NavLink to={"/price"}>Pricing Page</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/dashboard/surveyor/create"}>Dashboard</NavLink>
+      </li>
     </>
+  );
 
+  const handlerRemove = (e) => {
+    e.preventDefault();
+    logOut()
+      .then((res) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `Sign Out Successfully`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
 
   return (
     <div>
@@ -42,15 +69,24 @@ const Navbar = () => {
               {Links}
             </ul>
           </div>
-          <Link to={'/'} className="text-4xl lg:ml-2"><SiLimesurvey /></Link>
+          <Link to={"/"} className="text-4xl lg:ml-2">
+            <SiLimesurvey />
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-           {Links}
-          </ul>
+          <ul className="menu menu-horizontal px-1">{Links}</ul>
         </div>
         <div className="navbar-end">
-          <Link className="btn" to={'/login'}>Login</Link>
+          <p className="text-lg font-bold mr-2">{user.displayName}</p>
+          {user ? (
+            <button onClick={handlerRemove} className="btn bg-[#6e54b5] text-white hover:bg-blue-600 hover:text-black">
+              Sign out
+            </button>
+          ) : (
+            <Link className="btn bg-[#6e54b5] text-white hover:bg-blue-600 hover:text-black" to={"/login"} >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>
