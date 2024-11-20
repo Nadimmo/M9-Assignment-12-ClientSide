@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc"; // Google icon
 import { FaGithub } from "react-icons/fa"; // GitHub icon
-import { SiMicrosoft } from "react-icons/si"; // Microsoft icon
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
@@ -11,8 +10,8 @@ import Swal from "sweetalert2";
 const Login = () => {
   const {login,loginWithGoogle,loginWithGithub,user} = useContext(AuthContext)
   const axiosPublic = useAxiosPublic()
-
- 
+  const navigate = useNavigate()
+  const location = useLocation()
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -32,6 +31,7 @@ const Login = () => {
         });
         form.reset()
       }
+      navigate(location?.state? location?.state:'/')
     })
     .catch(err =>{
       alert(err.message)

@@ -77,7 +77,7 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{Links}</ul>
         </div>
         <div className="navbar-end">
-          <p className="text-lg font-bold mr-2">{user.displayName}</p>
+          <p className="text-lg font-bold mr-2">{user?.displayName}</p>
           {user ? (
             <button onClick={handlerRemove} className="btn bg-[#6e54b5] text-white hover:bg-blue-600 hover:text-black">
               Sign out

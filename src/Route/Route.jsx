@@ -12,6 +12,7 @@ import UpdateSurvery from '../pages/Dashboard/UpdateSurvery/UpdateSurvery';
 import SurveryDetails from '../pages/SurveryDetails/SurveryDetails';
 import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
         },
         {
             path:'/surverys',
-            element:<SurveryPage></SurveryPage>
+            element:<PrivateRoute><SurveryPage></SurveryPage></PrivateRoute> 
         },
         {
           path:'/surverys/:id',
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
         },
         {
           path:'/login',
-          element:<Login></Login>
+          element: <Login></Login>
         }
     ]
    
