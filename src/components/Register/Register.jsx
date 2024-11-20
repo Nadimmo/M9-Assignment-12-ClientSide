@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc"; // Google icon
 import { FaGithub } from "react-icons/fa"; // GitHub icon
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const Register = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
+    // console.log(formData)
     // try {
     //   const response = await axios.post("http://localhost:5000/register", formData);
     //   alert(response.data); // Show success message
@@ -45,9 +46,9 @@ const Register = () => {
         <h1 className="text-3xl font-bold text-white">Create an account</h1>
         <p className="mt-2 text-sm text-[#827f8d]">
           Already have an account?{" "}
-          <a href="#" className="text-blue-500 hover:underline">
+          <Link to="/login" className="text-blue-500 hover:underline">
             Sign in
-          </a>
+          </Link>
         </p>
 
         {/* Form */}

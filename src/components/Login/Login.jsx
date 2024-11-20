@@ -3,6 +3,7 @@ import { FcGoogle } from "react-icons/fc"; // Google icon
 import { FaGithub } from "react-icons/fa"; // GitHub icon
 import { SiMicrosoft } from "react-icons/si"; // Microsoft icon
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -19,32 +20,33 @@ const Login = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // console.log(formData)
 
-    try {
-      const response = await axios.post("http://localhost:5000/login", formData);
-      alert(response.data); // Show success message
-    } catch (error) {
-      console.error("Error logging in", error);
-      alert("Login failed.");
-    }
+    // try {
+    //   const response = await axios.post("http://localhost:5000/login", formData);
+    //   alert(response.data); // Show success message
+    // } catch (error) {
+    //   console.error("Error logging in", error);
+    //   alert("Login failed.");
+    // }
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex bg-[#2b2738] rounded-2xl border-2 shadow-xl p-5">
       {/* Left Side */}
-      <div className="flex flex-col justify-center w-full md:w-1/2 px-8 py-12 bg-white shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800">Login</h1>
-        <p className="mt-2 text-sm text-gray-600">
+      <div className="flex flex-col justify-center w-full md:w-1/2 px-8 py-12 shadow-xl rounded-xl rounded-l-none">
+        <h1 className="text-3xl font-bold text-white">Login</h1>
+        <p className="mt-2 text-sm text-[#827f8d]">
           Don't have an account?{" "}
-          <a href="#" className="text-blue-500 hover:underline">
+          <Link to="/register" className="text-blue-500 hover:underline">
             Create one
-          </a>
+          </Link>
         </p>
 
         {/* Form */}
         <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <label className="block text-sm font-medium text-white">Email</label>
             <input
               type="email"
               name="email"
@@ -56,7 +58,7 @@ const Login = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
+            <label className="block text-sm font-medium text-white">Password</label>
             <input
               type="password"
               name="password"
@@ -70,7 +72,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg font-semibold"
+            className="w-full px-4 py-2 text-white bg-[#6e54b5] hover:bg-blue-600 rounded-lg font-semibold"
           >
             Login
           </button>
@@ -109,7 +111,7 @@ const Login = () => {
       <div
         className="hidden md:flex w-1/2 items-center justify-center bg-cover bg-center"
         style={{
-          backgroundImage: "url('https://i.ibb.co/2qj597N/banner.webp')",
+          backgroundImage: "url('https://i.ibb.co.com/GWc3MHF/banner.webp')",
         }}
       ></div>
     </div>
