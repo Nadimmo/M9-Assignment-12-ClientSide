@@ -13,6 +13,8 @@ import SurveryDetails from '../pages/SurveryDetails/SurveryDetails';
 import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import AllSurveyor from '../pages/Dashboard/AllSurveyor/AllSurveyor';
+import DetailsSurveyos from '../pages/Dashboard/AllSurveyor/DetailsSurveyos';
 
 const router = createBrowserRouter([
   {
@@ -45,12 +47,21 @@ const router = createBrowserRouter([
    
   },
   {
-    path:'/dashboard',
+    path:'dashboard',
     element: <Dashboard></Dashboard>,
     children: [
       {
         path:'surveyor/create',
         element:<Create></Create>
+      },
+      {
+        path:'surveyor/surveys',
+        element: <AllSurveyor></AllSurveyor>
+      },
+      {
+        path:'surveyor/surveys/:id',
+        element: <DetailsSurveyos></DetailsSurveyos>,
+        loader: ({params})=>fetch(`http://localhost:5000/surverys/${params.id}`)
       },
       {
         path:'surveyor/update',

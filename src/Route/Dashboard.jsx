@@ -18,7 +18,7 @@ const Dashboard = () => {
               </NavLink>
             </li>
             <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
-              <NavLink to={"dashboard/surveyor/surveys"}>All Surveys</NavLink>
+              <NavLink to={"/dashboard/surveyor/surveys"}>All Surveys</NavLink>
             </li>
             <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
               <NavLink to={"/"}>Home</NavLink>
