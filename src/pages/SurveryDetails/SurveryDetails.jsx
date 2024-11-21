@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../components/Hooks/useAxiosPublic";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const SurveyDetails = () => {
+  const {user} = useContext(AuthContext)
   const axiosPublic = useAxiosPublic();
   const survey = useLoaderData();
+  const navigate = useNavigate();
+  console.log("yes vote count",survey.questions[0].options.yes)
+  // console.log("no vote count",survey.questions[0].options.no)
+
   const [answers, setAnswers] = useState(survey.questions.map(() => ""));
   const [voteCounts, setVoteCounts] = useState(
     survey.questions.map((q) => q.options)
   );
-  const [isLoggedIn] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
   const [report, setReport] = useState({ title: "", description: "" });
-  const navigate = useNavigate();
 
   // Handle answer selection
   const handleAnswerChange = (index, value) => {
@@ -24,15 +29,15 @@ const SurveyDetails = () => {
 
   // Submit survey answers and update database
   const handleSubmitAnswers = async () => {
-    // if (!isLoggedIn) {
-    //   Swal.fire({
-    //     icon: "warning",
-    //     title: "Login Required",
-    //     text: "Please log in to submit your responses.",
-    //   });
-    //   navigate("/login");
-    //   return;
-    // }
+    if (!user) {
+      Swal.fire({
+        icon: "warning",
+        title: "Login Required",
+        text: "Please log in to submit your responses.",
+      });
+      navigate("/login");
+      return;
+    }
 
     // Update local vote counts
     const updatedVotes = [...voteCounts];

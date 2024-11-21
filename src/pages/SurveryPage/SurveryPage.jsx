@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const SurveryPage = () => {
   const { surverys } = useSurverys();
-  console.log(surverys);
+  // console.log(surverys);
 
   return (
     <div className="lg:grid grid-cols-3 gap-6 items-center rounded-xl lg:p-6 mb-6 mx-auto ">
