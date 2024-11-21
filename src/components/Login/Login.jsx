@@ -37,16 +37,6 @@ const Login = () => {
       alert(err.message)
     })
 
-
-    // console.log(formData)
-
-    // try {
-    //   const response = await axiosPublic.post("http://localhost:5000/login", formData);
-    //   alert(response.data); // Show success message
-    // } catch (error) {
-    //   console.error("Error logging in", error);
-    //   alert("Login failed.");
-    // }
   };
 
 
