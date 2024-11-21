@@ -9,7 +9,7 @@ const SurveyDetails = () => {
   const axiosPublic = useAxiosPublic();
   const survey = useLoaderData();
   const navigate = useNavigate();
-  console.log("yes vote count",survey.questions[0].options.yes)
+  // console.log("yes vote count",survey.questions[0].options.yes)
   // console.log("no vote count",survey.questions[0].options.no)
 
   const [answers, setAnswers] = useState(survey.questions.map(() => ""));
