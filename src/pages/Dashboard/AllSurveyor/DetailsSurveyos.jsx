@@ -4,7 +4,7 @@ import useAxiosPublic from "../../../components/Hooks/useAxiosPublic";
 
 const DetailsSurveyos = () => {
   const { id } = useParams(); // Survey ID
-  const axiosPublic = useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
   const [survey, setSurvey] = useState(null);
 
   useEffect(() => {
@@ -37,24 +37,27 @@ const DetailsSurveyos = () => {
         <thead>
           <tr className="bg-gray-200">
             <th className="py-2 px-4">#</th>
-            <th className="py-2 px-4">Question</th>
-            <th className="py-2 px-4">Yes Votes</th>
-            <th className="py-2 px-4">No Votes</th>
+            <th className="py-2 px-4">Email</th>
+            <th className="py-2 px-4">User Name</th>
+            <th className="py-2 px-4">Total Votes</th>
           </tr>
         </thead>
         <tbody>
-          {survey.questions.map((question, index) => (
-            <tr key={index} className="border-b">
-              <td className="py-2 px-4 text-center">{index + 1}</td>
-              <td className="py-2 px-4">{question.title}</td>
-              <td className="py-2 px-4 text-green-600 text-center">
-                {question.options.yes}
-              </td>
-              <td className="py-2 px-4 text-red-600 text-center">
-                {question.options.no}
-              </td>
-            </tr>
-          ))}
+          {survey.questions.map((question, index) => {
+            const totalVotes =
+              (question.options.yes || 0) + (question.options.no || 0);
+
+            return (
+              <tr key={index} className="border-t">
+                <td className="py-2 px-4 text-center">{index + 1}</td>
+                <td className="py-2 px-4">{survey.email}</td>
+                <td className="py-2 px-4">{survey.username}</td>
+                <td className="py-2 px-4 text-center font-semibold">
+                  {totalVotes}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

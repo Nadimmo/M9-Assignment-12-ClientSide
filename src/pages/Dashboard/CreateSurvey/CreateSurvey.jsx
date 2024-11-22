@@ -9,6 +9,8 @@ const CreateSurvey = () => {
     description: "",
     category: "",
     deadline: "",
+    email: "", // New field for email
+    username: "", // New field for username
     questions: [
       {
         title: "",
@@ -62,6 +64,8 @@ const CreateSurvey = () => {
           description: "",
           category: "",
           deadline: "",
+          email: "",
+          username: "",
           questions: [
             { title: "", description: "", options: { yes: 0, no: 0 } },
           ],
@@ -82,6 +86,34 @@ const CreateSurvey = () => {
         onSubmit={handleSubmit}
         className="space-y-8 bg-white shadow-lg rounded-lg p-8 animate-slide-up"
       >
+        {/* User Details */}
+        <div className="space-y-4">
+          <div>
+            <label className="block font-semibold text-gray-700">Username</label>
+            <input
+              type="text"
+              name="username"
+              value={survey.username}
+              onChange={handleSurveyChange}
+              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              placeholder="Enter your username"
+              required
+            />
+          </div>
+          <div>
+            <label className="block font-semibold text-gray-700">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={survey.email}
+              onChange={handleSurveyChange}
+              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+        </div>
+
         {/* Survey Details */}
         <div className="space-y-4">
           <div>
