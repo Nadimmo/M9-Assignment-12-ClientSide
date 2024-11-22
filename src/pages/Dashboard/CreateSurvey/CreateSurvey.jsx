@@ -78,7 +78,7 @@ const CreateSurvey = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto py-12 px-4">
+    <div className="max-w-5xl mx-auto py-10 px-4">
       <h1 className="text-4xl font-bold text-center text-indigo-600 mb-8 animate-fade-in">
         Create a New Survey
       </h1>

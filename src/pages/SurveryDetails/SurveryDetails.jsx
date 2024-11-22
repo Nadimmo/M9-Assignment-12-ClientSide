@@ -82,13 +82,22 @@ const SurveyDetails = () => {
 
   // Handle report submission
   const handleSubmitReport = () => {
-    console.log("Report Submitted:", report);
+    // console.log("Report Submitted:", report);
     setShowModal(false);
-    Swal.fire({
-      icon: "success",
-      title: "Report Submitted",
-      text: "Your survey report has been submitted.",
-    });
+    axiosPublic.post('reports', report)
+    .then(res =>{
+      if(res.data.insertedId){
+        Swal.fire({
+          icon: "success",
+          title: "Report Submitted",
+          text: "Your survey report has been submitted.",
+        });
+      }
+    })
+    .catch(err=>{
+      alert(err.message)
+    })
+
   };
 
   // Handle form input for the modal

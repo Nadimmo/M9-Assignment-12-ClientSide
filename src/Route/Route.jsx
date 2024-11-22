@@ -15,6 +15,7 @@ import Login from '../components/Login/Login';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import AllSurveyor from '../pages/Dashboard/AllSurveyor/AllSurveyor';
 import DetailsSurveyos from '../pages/Dashboard/AllSurveyor/DetailsSurveyos';
+import Reports from '../pages/Dashboard/Reports/Reports';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,7 @@ const router = createBrowserRouter([
     path:'dashboard',
     element: <Dashboard></Dashboard>,
     children: [
+      // surveyor dashboard
       {
         path:'surveyor/create',
         element:<Create></Create>
@@ -66,7 +68,12 @@ const router = createBrowserRouter([
       {
         path:'surveyor/update',
         element: <UpdateSurvery></UpdateSurvery>,
-        // loader: ({params})=>fetch(`http://localhost:5000/surverys/${params.id}`)
+      },
+      // user dashboard
+      {
+        path:"user/my-reports",
+        element: <Reports></Reports>,
+
       }
     ]
   }

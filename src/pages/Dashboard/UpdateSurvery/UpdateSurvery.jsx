@@ -1,180 +1,204 @@
-// import React, { useState, useEffect } from "react";
-// // import { useParams} from "react-router-dom";
-// // import Swal from "sweetalert2";
-// import useAxiosPublic from "../../../components/Hooks/useAxiosPublic";
-
-// const UpdateSurvery = () => {
-//   // const { id } = useParams(); // Survey ID from URL
-//   const axiosPublic = useAxiosPublic()
-//   const [survey, setSurvey] = useState(null);
-
-//   // Predefined categories
-//   const categories = [
-//     "Customer Feedback",
-//     "Employee Satisfaction",
-//     "Market Research",
-//     "Academic Study",
-//     "Event Feedback",
-//   ];
-
-//   // useEffect(() => {
-//   //   // Fetch survey details
-//   //   const fetchSurvey = async () => {
-//   //     try {
-//   //       const response = await axiosPublic.get(`/surverys/${id}`);
-//   //       const data = await response.json();
-//   //       setSurvey(data);
-//   //     } catch (error) {
-//   //       console.error("Error fetching survey:", error);
-//   //       Swal.fire("Error", "Failed to load survey details", "error");
-//   //     }
-//   //   };
-
-//   //   fetchSurvey();
-//   // }, [id]);
-
-//   // // Handle form changes
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setSurvey({ ...survey, [name]: value });
-//   };
-
-//   // // Handle form submission
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     console.log()
-
-//   //   try {
-//   //     const response = await axiosPublic.put(`/surverys/${id}`,survey);
-
-//   //     const result = await response.json();
-
-//   //     if (response.ok) {
-//   //       Swal.fire("Success", "Survey updated successfully!", "success");
-//   //     } else {
-//   //       Swal.fire("Error", result.message || "Failed to update survey", "error");
-//   //     }
-//   //   } catch (error) {
-//   //     console.error("Error updating survey:", error);
-//   //     Swal.fire("Error", "An error occurred while updating the survey", "error");
-//   //   }
-//   // };
-
-//   // if (!survey) {
-//   //   return <div>Loading survey details...</div>;
-//   }
-
-//   return (
-//     <div className="max-w-4xl mx-auto py-12">
-//       <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600">
-//         Update Survey
-//       </h1>
-//       <form
-//         onSubmit={handleSubmit}
-//         className="bg-white p-6 shadow-md rounded-lg space-y-6"
-//       >
-//         <div>
-//           <label className="block font-semibold mb-1">Survey Title</label>
-//           <input
-//             type="text"
-//             name="title"
-//             value={survey.title}
-//             onChange={handleChange}
-//             className="w-full p-2 border rounded-md"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <label className="block font-semibold mb-1">Survey Description</label>
-//           <textarea
-//             name="description"
-//             value={survey.description}
-//             onChange={handleChange}
-//             className="w-full p-2 border rounded-md"
-//             rows="4"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <label className="block font-semibold mb-1">Category</label>
-//           <select
-//             name="category"
-//             value={survey.category}
-//             onChange={handleChange}
-//             className="w-full p-2 border rounded-md"
-//             required
-//           >
-//             <option value="">Select a Category</option>
-//             {categories.map((cat, index) => (
-//               <option key={index} value={cat}>
-//                 {cat}
-//               </option>
-//             ))}
-//           </select>
-//         </div>
-//         <div>
-//           <label className="block font-semibold mb-1">Deadline</label>
-//           <input
-//             type="date"
-//             name="deadline"
-//             value={survey.deadline}
-//             onChange={handleChange}
-//             className="w-full p-2 border rounded-md"
-//             required
-//           />
-//         </div>
-//         <div>
-//           <h2 className="text-xl font-semibold mb-4">Questions</h2>
-//           {survey.questions.map((question, index) => (
-//             <div key={index} className="p-4 bg-gray-100 rounded-md mb-4">
-//               <label className="block font-semibold mb-1">Question Title</label>
-//               <input
-//                 type="text"
-//                 name={`questions[${index}].title`}
-//                 value={question.title}
-//                 onChange={(e) => {
-//                   const updatedQuestions = [...survey.questions];
-//                   updatedQuestions[index].title = e.target.value;
-//                   setSurvey({ ...survey, questions: updatedQuestions });
-//                 }}
-//                 className="w-full p-2 border rounded-md"
-//                 required
-//               />
-//               <label className="block font-semibold mt-4">Description</label>
-//               <textarea
-//                 name={`questions[${index}].description`}
-//                 value={question.description}
-//                 onChange={(e) => {
-//                   const updatedQuestions = [...survey.questions];
-//                   updatedQuestions[index].description = e.target.value;
-//                   setSurvey({ ...survey, questions: updatedQuestions });
-//                 }}
-//                 className="w-full p-2 border rounded-md"
-//                 rows="3"
-//                 required
-//               />
-//             </div>
-//           ))}
-//         </div>
-//         <button
-//           type="submit"
-//           className="w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700"
-//         >
-//           Update Survey
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default UpdateSurvery;
-
-import React from 'react'
+import React, { useState } from "react";
+import useAxiosPublic from "../../../components/Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const UpdateSurvery = () => {
-  return (
-    <div>UpdateSurvery</div>
-  )
-}
+  const axiosPublic = useAxiosPublic();
+  const [survey, setSurvey] = useState({
+    title: "",
+    description: "",
+    category: "",
+    deadline: "",
+    email: "", // New field for email
+    username: "", // New field for username
+    questions: [
+      {
+        title: "",
+        description: "",
+        options: { yes: 0, no: 0 },
+      },
+    ],
+  });
 
-export default UpdateSurvery
+  // Predefined categories
+  const categories = [
+    "Customer Feedback",
+    "Employee Satisfaction",
+    "Market Research",
+    "Academic Study",
+    "Event Feedback",
+  ];
+
+  const handleSurveyChange = (e) => {
+    const { name, value } = e.target;
+    setSurvey({ ...survey, [name]: value });
+  };
+
+  const handleQuestionChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedQuestions = [...survey.questions];
+    updatedQuestions[index] = { ...updatedQuestions[index], [name]: value };
+    setSurvey({ ...survey, questions: updatedQuestions });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const surveyData = {
+      ...survey,
+      status: "publish", // Default status handled here
+    };
+
+    try {
+      const response = await axiosPublic.post("/surverys/create", surveyData);
+      if (response.data.insertedId) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Survey successfully created!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setSurvey({
+          title: "",
+          description: "",
+          category: "",
+          deadline: "",
+          email: "",
+          username: "",
+          questions: [
+            { title: "", description: "", options: { yes: 0, no: 0 } },
+          ],
+        });
+      }
+    } catch (error) {
+      console.error("Error creating survey:", error);
+      alert("There was an error creating the survey.");
+    }
+  };
+
+  return (
+    <div className="max-w-5xl mx-auto py-10 px-4">
+      <h1 className="text-4xl font-bold text-center text-indigo-600 mb-8 animate-fade-in">
+        Update Survey
+      </h1>
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-8 bg-white shadow-lg rounded-lg p-8 animate-slide-up"
+      >
+        
+        {/* Survey Details */}
+        <div className="space-y-4">
+          <div>
+            <label className="block font-semibold text-gray-700">
+              Survey Title
+            </label>
+            <input
+              type="text"
+              name="title"
+              value={survey.title}
+              onChange={handleSurveyChange}
+              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              placeholder="Enter the survey title"
+              required
+            />
+          </div>
+          <div>
+            <label className="block font-semibold text-gray-700">
+              Survey Description
+            </label>
+            <textarea
+              name="description"
+              value={survey.description}
+              onChange={handleSurveyChange}
+              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              rows="4"
+              placeholder="Enter a brief description of the survey"
+              required
+            />
+          </div>
+          <div>
+            <label className="block font-semibold text-gray-700">Category</label>
+            <select
+              name="category"
+              value={survey.category}
+              onChange={handleSurveyChange}
+              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              required
+            >
+              <option value="">Select a Category</option>
+              {categories.map((cat, index) => (
+                <option key={index} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block font-semibold text-gray-700">Deadline</label>
+            <input
+              type="date"
+              name="deadline"
+              value={survey.deadline}
+              onChange={handleSurveyChange}
+              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              required
+            />
+          </div>
+        </div>
+
+        {/* Questions Section */}
+        <div>
+          <h2 className="text-2xl font-bold text-indigo-600 mb-4">
+            Questions
+          </h2>
+          {survey.questions.map((q, index) => (
+            <div
+              key={index}
+              className="p-4 border rounded-lg bg-gray-50 shadow-sm hover:shadow-lg transition duration-200 mb-4"
+            >
+              <div>
+                <label className="block font-semibold text-gray-700">
+                  Question Title
+                </label>
+                <input
+                  type="text"
+                  name="title"
+                  value={q.title}
+                  onChange={(e) => handleQuestionChange(e, index)}
+                  className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+                  placeholder="Enter the question title"
+                  required
+                />
+              </div>
+              <div className="mt-4">
+                <label className="block font-semibold text-gray-700">
+                  Question Description
+                </label>
+                <textarea
+                  name="description"
+                  value={q.description}
+                  onChange={(e) => handleQuestionChange(e, index)}
+                  className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+                  rows="2"
+                  placeholder="Enter the question description"
+                  required
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full py-3 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition duration-200"
+        >
+          Submit Survey
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default UpdateSurvery;
