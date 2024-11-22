@@ -16,6 +16,8 @@ import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import AllSurveyor from '../pages/Dashboard/AllSurveyor/AllSurveyor';
 import DetailsSurveyos from '../pages/Dashboard/AllSurveyor/DetailsSurveyos';
 import Reports from '../pages/Dashboard/Reports/Reports';
+import Participate from '../pages/Dashboard/Participate/Participate';
+import ViewParticipation from '../pages/Dashboard/Participate/ViewParticipation';
 
 const router = createBrowserRouter([
   {
@@ -73,6 +75,16 @@ const router = createBrowserRouter([
       {
         path:"user/my-reports",
         element: <Reports></Reports>,
+
+      },
+      {
+        path:'user/surveys',
+        element: <Participate></Participate>
+      },
+      {
+        path:'user/surveys/:id',
+        element: <ViewParticipation></ViewParticipation>,
+        loader: ({params})=>fetch(`http://localhost:5000/surverys/${params.id}`)
 
       }
     ]
