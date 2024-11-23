@@ -5,7 +5,7 @@ const Dashboard = () => {
   return (
     <div className="flex  lg:flex-row">
       {/* Sidebar */}
-      <div className="w-full lg:w-72 p-4 bg-gradient-to-r from-[#F7A582] via-[#FBBF93] to-[#F9E7DA] text-black">
+      <div className="w-full min-h-screen lg:w-72 p-4 bg-gradient-to-r  from-[#F7A582] via-[#FBBF93] to-[#F9E7DA] text-black">
         <ul className="space-y-2">
           {/* Surveys Dashboard */}
           <h2 className="text-lg font-semibold mb-3 text-gray-800">Surveyor</h2>

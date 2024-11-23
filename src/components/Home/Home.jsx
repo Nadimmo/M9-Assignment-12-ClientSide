@@ -5,6 +5,7 @@ import FAQ from './FAQ/FAQ'
 import Featured from './Featured/Featured'
 import Latest from './Latest/Latest'
 import Testimonial from './Testimonial/Testimonial'
+import Statistics from './Statistics'
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       <Latest></Latest>
       <Works></Works>
       <Testimonial></Testimonial>
+      <Statistics></Statistics>
       <FAQ></FAQ>
     </div>
   )
