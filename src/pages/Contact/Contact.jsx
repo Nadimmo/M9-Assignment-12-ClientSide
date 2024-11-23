@@ -4,44 +4,29 @@ import useAxiosPublic from "../../components/Hooks/useAxiosPublic";
 
 const Contact = () => {
   const axiosPublic = useAxiosPublic();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-  const [file, setFile] = useState(null);
 
-  // Handle input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  // Handle file change
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const from = e.target
+    const name = from.name.value
+    const email = from.email.value
+    const subject = from.subject.value
+    const message = from.message.value
 
-    // Prepare the form data for submission
-    const data = new FormData();
-    data.append("name", formData.name);
-    data.append("email", formData.email);
-    data.append("subject", formData.subject);
-    data.append("message", formData.message);
-    if (file) {
-      data.append("file", file);
+    const formData = {
+      name:name,
+      email:email,
+      subject:subject,
+      message:message
     }
 
+    // console.log(formData)
+    
+
     try {
-      const response = await axiosPublic.post("/contact", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const response = await axiosPublic.post("/contact", formData, {
       });
       if (response.status === 200) {
         Swal.fire({
@@ -51,8 +36,6 @@ const Contact = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        setFormData({ name: "", email: "", subject: "", message: "" });
-        setFile(null);
       }
     } catch (error) {
       console.error("Error sending contact form:", error);
@@ -84,8 +67,7 @@ const Contact = () => {
               id="name"
               name="name"
               placeholder="Enter your full name"
-              value={formData.name}
-              onChange={handleChange}
+  
               className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
               required
             />
@@ -99,8 +81,7 @@ const Contact = () => {
               id="email"
               name="email"
               placeholder="Enter your email address"
-              value={formData.email}
-              onChange={handleChange}
+
               className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
               required
             />
@@ -114,8 +95,7 @@ const Contact = () => {
               id="subject"
               name="subject"
               placeholder="Enter the subject"
-              value={formData.subject}
-              onChange={handleChange}
+
               className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
               required
             />
@@ -129,22 +109,10 @@ const Contact = () => {
               name="message"
               placeholder="Type your message here"
               rows="5"
-              value={formData.message}
-              onChange={handleChange}
+
               className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
               required
             ></textarea>
-          </div>
-          <div>
-            <label className="block font-semibold text-gray-600 mb-2" htmlFor="file">
-              Upload File (optional)
-            </label>
-            <input
-              type="file"
-              id="file"
-              onChange={handleFileChange}
-              className="w-full p-2 border rounded-md"
-            />
           </div>
           <button
             type="submit"
