@@ -19,6 +19,7 @@ import Reports from '../pages/Dashboard/Reports/Reports';
 import Participate from '../pages/Dashboard/Participate/Participate';
 import ViewParticipation from '../pages/Dashboard/Participate/ViewParticipation';
 import ManageUser from '../pages/Dashboard/ManageUser/ManageUser';
+import About from '../pages/About/About';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         {
             path:'/',
             element: <Home></Home>
+        },
+        {
+          path:'/about',
+          element: <About></About>
         },
         {
             path:'/surverys',
