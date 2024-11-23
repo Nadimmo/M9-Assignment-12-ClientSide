@@ -10,22 +10,52 @@ const Navbar = () => {
   const Links = (
     <>
       <li>
-        <NavLink to={"/"}>Home</NavLink>
+        <NavLink
+          to={"/"}
+          className="text-lg text-gray-700 hover:text-blue-600 font-medium"
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/about"}>About</NavLink>
+        <NavLink
+          to={"/about"}
+          className="text-lg text-gray-700 hover:text-blue-600 font-medium"
+        >
+          About
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/surverys"}>Survery </NavLink>
+        <NavLink
+          to={"/surverys"}
+          className="text-lg text-gray-700 hover:text-blue-600 font-medium"
+        >
+          Surveys
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/price"}>Pricing Page</NavLink>
+        <NavLink
+          to={"/price"}
+          className="text-lg text-gray-700 hover:text-blue-600 font-medium"
+        >
+          Pricing
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/dashboard/surveyor/create"}>Dashboard</NavLink>
+        <NavLink
+          to={"/dashboard/surveyor/create"}
+          className="text-lg text-gray-700 hover:text-blue-600 font-medium"
+        >
+          Dashboard
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/contact"}>Contact us</NavLink>
+        <NavLink
+          to={"/contact"}
+          className="text-lg text-gray-700 hover:text-blue-600 font-medium"
+        >
+          Contact Us
+        </NavLink>
       </li>
     </>
   );
@@ -33,7 +63,7 @@ const Navbar = () => {
   const handlerRemove = (e) => {
     e.preventDefault();
     logOut()
-      .then((res) => {
+      .then(() => {
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -48,14 +78,19 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <div className="navbar bg-base-100">
+    <div className="bg-gray-100 shadow-md">
+      <div className="navbar container mx-auto py-4 px-4 lg:px-8">
+        {/* Navbar Start */}
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <button
+              tabIndex={0}
+              className="btn btn-ghost lg:hidden"
+              aria-label="Open Menu"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -67,29 +102,46 @@ const Navbar = () => {
                   d="M4 6h16M4 12h8m-8 6h16"
                 />
               </svg>
-            </div>
+            </button>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-white rounded-box z-[1] mt-3 w-52 p-2 shadow-lg"
             >
               {Links}
             </ul>
           </div>
-          <Link to={"/"} className="text-4xl lg:ml-2">
-            <SiLimesurvey />
+          <Link
+            to={"/"}
+            className="text-4xl flex items-center font-bold text-[#6e54b5] hover:text-blue-600 lg:ml-2"
+          >
+            <SiLimesurvey className="mr-2" /> SurveyPro
           </Link>
         </div>
+
+        {/* Navbar Center */}
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{Links}</ul>
+          <ul className="menu menu-horizontal space-x-6">{Links}</ul>
         </div>
-        <div className="navbar-end">
-          <p className="text-lg font-bold mr-2">{user?.displayName}</p>
+
+        {/* Navbar End */}
+        <div className="navbar-end flex items-center">
+          {user && (
+            <p className="hidden md:block text-lg font-bold text-gray-700 mr-4">
+              {user?.displayName}
+            </p>
+          )}
           {user ? (
-            <button onClick={handlerRemove} className="btn bg-[#6e54b5] text-white hover:bg-blue-600 hover:text-black">
-              Sign out
+            <button
+              onClick={handlerRemove}
+              className="btn bg-[#6e54b5] text-white border-0 hover:bg-blue-600 transition-colors duration-300"
+            >
+              Sign Out
             </button>
           ) : (
-            <Link className="btn bg-[#6e54b5] text-white hover:bg-blue-600 hover:text-black" to={"/login"} >
+            <Link
+              to={"/login"}
+              className="btn bg-[#6e54b5] text-white border-0 hover:bg-blue-600 transition-colors duration-300"
+            >
               Login
             </Link>
           )}
