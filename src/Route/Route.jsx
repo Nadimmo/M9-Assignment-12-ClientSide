@@ -21,6 +21,7 @@ import ViewParticipation from '../pages/Dashboard/Participate/ViewParticipation'
 import ManageUser from '../pages/Dashboard/ManageUser/ManageUser';
 import About from '../pages/About/About';
 import Contact from '../pages/Contact/Contact';
+import PricePage from '../pages/PricePage/PricePage';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
         {
           path:'/contact',
           element: <Contact></Contact>
+        },
+        {
+          path:'/price',
+          element: <PricePage></PricePage>
         },
         {
             path:'/surverys',
