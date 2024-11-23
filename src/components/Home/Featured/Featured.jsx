@@ -25,7 +25,7 @@ const Featured = () => {
     return (
       <div
         key={survey._id}
-        className="card bg-[#7BD3EA] lg:w-96 shadow-lg transition-transform hover:scale-105 lg:mt-0 mt-4"
+        className="bg-gradient-to-r from-indigo-400 to-blue-400 text-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-200 lg:mt-0 mt-4"
       >
         <div className="card-body">
           <h2 className="card-title">{survey.title}</h2>

@@ -2,71 +2,116 @@ import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
-  // console.log(isAdmin)
   return (
-    <div className="flex">
-      <div className=" lg:w-96 min-h-screen p-5 bg-[#F7A582] text-black">
-        <ul>
-          <>
-            {/* surveys dashboard */}
-            <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
-              <NavLink to={"/dashboard/surveyor/create"}>Create Survey</NavLink>
-            </li>
-            <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
-              <NavLink to={"/dashboard/surveyor/update"}>
-                Update Surveyor
-              </NavLink>
-            </li>
-            <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
-              <NavLink to={"/dashboard/surveyor/surveys"}>All Surveys</NavLink>
-            </li>
-            <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
-              <NavLink to={"/"}>Home</NavLink>
-            </li>
-          </>
+    <div className="flex  lg:flex-row">
+      {/* Sidebar */}
+      <div className="w-full lg:w-72 p-4 bg-gradient-to-r from-[#F7A582] via-[#FBBF93] to-[#F9E7DA] text-black">
+        <ul className="space-y-2">
+          {/* Surveys Dashboard */}
+          <h2 className="text-lg font-semibold mb-3 text-gray-800">Surveyor</h2>
+          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
+            <NavLink
+              to={"/dashboard/surveyor/create"}
+              className="block px-4 py-2 text-sm font-medium"
+            >
+              Create Survey
+            </NavLink>
+          </li>
+          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
+            <NavLink
+              to={"/dashboard/surveyor/update"}
+              className="block px-4 py-2 text-sm font-medium"
+            >
+              Update Surveyor
+            </NavLink>
+          </li>
+          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
+            <NavLink
+              to={"/dashboard/surveyor/surveys"}
+              className="block px-4 py-2 text-sm font-medium"
+            >
+              All Surveys
+            </NavLink>
+          </li>
+          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
+            <NavLink to={"/"} className="block px-4 py-2 text-sm font-medium">
+              Home
+            </NavLink>
+          </li>
 
-          <div className="divider"></div>
+          <div className="divider my-4"></div>
 
-          {/* admin dashboard */}
-          <>
-            <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
-              <NavLink to={"/dashboard/admin/users"}>Manage User</NavLink>
-            </li>
-            <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
-              <NavLink to={"/dashboard/admin/surveys"}>
-                Publish/UnPublish
-              </NavLink>
-            </li>
-            <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
-              <NavLink to={"/dashboard/admin/payments"}>All Payment</NavLink>
-            </li>
-            <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
-              <NavLink to={"/"}>Home</NavLink>
-            </li>
-          </>
+          {/* Admin Dashboard */}
+          <h2 className="text-lg font-semibold mb-3 text-gray-800">Admin</h2>
+          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
+            <NavLink
+              to={"/dashboard/admin/users"}
+              className="block px-4 py-2 text-sm font-medium"
+            >
+              Manage User
+            </NavLink>
+          </li>
+          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
+            <NavLink
+              to={"/dashboard/admin/surveys"}
+              className="block px-4 py-2 text-sm font-medium"
+            >
+              Publish/UnPublish
+            </NavLink>
+          </li>
+          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
+            <NavLink
+              to={"/dashboard/admin/payments"}
+              className="block px-4 py-2 text-sm font-medium"
+            >
+              All Payments
+            </NavLink>
+          </li>
+          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
+            <NavLink to={"/"} className="block px-4 py-2 text-sm font-medium">
+              Home
+            </NavLink>
+          </li>
 
-          <div className="divider"></div>
+          <div className="divider my-4"></div>
 
-          {/* // user dashboard? */}
-          <>
-            <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
-              <NavLink to={"/dashboard/user/surveys"}>Participate Surveys</NavLink>
-            </li>
-            <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
-              <NavLink to={"/dashboard/user/my-reports"}>My Reports</NavLink>
-            </li>
-            <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
-              <NavLink to={"/dashboard/user/comments"}>My Comments</NavLink>
-            </li>
-            <li className="lg:text-xl lg:px-2 py-4 font-bold  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-[#06b6d4] duration-300">
-              <NavLink to={"/"}>Home</NavLink>
-            </li>
-          </>
+          {/* User Dashboard */}
+          <h2 className="text-lg font-semibold mb-3 text-gray-800">User</h2>
+          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
+            <NavLink
+              to={"/dashboard/user/surveys"}
+              className="block px-4 py-2 text-sm font-medium"
+            >
+              Participate Surveys
+            </NavLink>
+          </li>
+          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
+            <NavLink
+              to={"/dashboard/user/my-reports"}
+              className="block px-4 py-2 text-sm font-medium"
+            >
+              My Reports
+            </NavLink>
+          </li>
+          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
+            <NavLink
+              to={"/dashboard/user/comments"}
+              className="block px-4 py-2 text-sm font-medium"
+            >
+              My Comments
+            </NavLink>
+          </li>
+          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
+            <NavLink to={"/"} className="block px-4 py-2 text-sm font-medium">
+              Home
+            </NavLink>
+          </li>
         </ul>
       </div>
-      {/* outlet */}
-      <div className="flex-1 p-10 bg-white">
-        <Outlet></Outlet>
+
+      {/* Content Area */}
+      <div className="flex-1 p-6 bg-gray-50 w-full">
+        <Outlet />
       </div>
     </div>
   );
