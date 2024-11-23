@@ -18,6 +18,7 @@ import DetailsSurveyos from '../pages/Dashboard/AllSurveyor/DetailsSurveyos';
 import Reports from '../pages/Dashboard/Reports/Reports';
 import Participate from '../pages/Dashboard/Participate/Participate';
 import ViewParticipation from '../pages/Dashboard/Participate/ViewParticipation';
+import ManageUser from '../pages/Dashboard/ManageUser/ManageUser';
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,11 @@ const router = createBrowserRouter([
         element: <ViewParticipation></ViewParticipation>,
         loader: ({params})=>fetch(`http://localhost:5000/surverys/${params.id}`)
 
+      },
+      // admin dashboard 
+      {
+        path:'admin/users',
+        element:<ManageUser></ManageUser>
       }
     ]
   }
