@@ -84,8 +84,9 @@ const router = createBrowserRouter([
         loader: ({params})=>fetch(`http://localhost:5000/surverys/${params.id}`)
       },
       {
-        path:'surveyor/update',
+        path:'surveyor/update/:id',
         element: <UpdateSurvery></UpdateSurvery>,
+        loader: ({params})=>fetch(`http://localhost:5000/surverys/${params.id}`)
       },
       // user dashboard
       {

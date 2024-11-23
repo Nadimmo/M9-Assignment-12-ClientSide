@@ -19,13 +19,14 @@ const ViewParticipation = () => {
   const currentDate = new Date();
   const isDeadlinePassed = new Date(surveyDetails.deadline) < currentDate;
 
-  // Handle response changes
+  // Handle response changes (making sure only one option is selected)
   const handleResponseChange = (questionId, value) => {
     setResponses({ ...responses, [questionId]: value });
   };
 
   // Submit participation
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("User responses:", responses);
     setIsSubmitted(true); // Mark as submitted
   };
@@ -51,10 +52,7 @@ const ViewParticipation = () => {
         <div>
           <h2 className="text-2xl font-semibold mb-4">Answer the Questions</h2>
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSubmit();
-            }}
+            onSubmit={handleSubmit}
             className="space-y-6"
           >
             {surveyDetails.questions.map((question, index) => (
@@ -68,8 +66,9 @@ const ViewParticipation = () => {
                         <label key={idx} className="block">
                           <input
                             type="radio"
-                            name={question._id}
+                            name={question._id} // Same name for all options to ensure only one can be selected
                             value={option}
+                            checked={responses[question._id] === option} // Ensure the selected option is checked
                             onChange={() =>
                               handleResponseChange(question._id, option)
                             }
@@ -83,8 +82,9 @@ const ViewParticipation = () => {
                         <label key={idx} className="block">
                           <input
                             type="radio"
-                            name={question._id}
+                            name={question._id} // Same name for all options to ensure only one can be selected
                             value={defaultOption}
+                            checked={responses[question._id] === defaultOption} // Ensure the selected option is checked
                             onChange={() =>
                               handleResponseChange(question._id, defaultOption)
                             }

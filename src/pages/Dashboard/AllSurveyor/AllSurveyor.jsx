@@ -4,7 +4,7 @@ import useSurvey from "../../../components/Hooks/useSurvey";
 const AllSurveyor = () => {
   const navigate = useNavigate();
   const { survey } = useSurvey();
-  console.log(survey);
+  // console.log(survey);
 
   return (
     <div className="max-w-6xl mx-auto py-12">
@@ -50,9 +50,17 @@ const AllSurveyor = () => {
                     onClick={() =>
                       navigate(`/dashboard/surveyor/surveys/${survey._id}`)
                     }
-                    className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
+                    className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 mr-2"
                   >
                     Details
+                  </button>
+                  <button
+                    onClick={() =>
+                      navigate(`/dashboard/surveyor/update/${survey._id}`)
+                    }
+                    className="bg-yellow-600 text-white py-2 px-4 rounded-md hover:bg-yellow-700"
+                  >
+                    Update
                   </button>
                 </td>
               </tr>

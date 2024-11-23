@@ -17,14 +17,14 @@ const Dashboard = () => {
               Create Survey
             </NavLink>
           </li>
-          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
+          {/* <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
             <NavLink
               to={"/dashboard/surveyor/update"}
               className="block px-4 py-2 text-sm font-medium"
             >
               Update Surveyor
             </NavLink>
-          </li>
+          </li> */}
           <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
             <NavLink
               to={"/dashboard/surveyor/surveys"}
