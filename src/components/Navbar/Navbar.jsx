@@ -24,6 +24,9 @@ const Navbar = () => {
       <li>
         <NavLink to={"/dashboard/surveyor/create"}>Dashboard</NavLink>
       </li>
+      <li>
+        <NavLink to={"/contact"}>Contact us</NavLink>
+      </li>
     </>
   );
 

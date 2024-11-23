@@ -20,6 +20,7 @@ import Participate from '../pages/Dashboard/Participate/Participate';
 import ViewParticipation from '../pages/Dashboard/Participate/ViewParticipation';
 import ManageUser from '../pages/Dashboard/ManageUser/ManageUser';
 import About from '../pages/About/About';
+import Contact from '../pages/Contact/Contact';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
         {
           path:'/about',
           element: <About></About>
+        },
+        {
+          path:'/contact',
+          element: <Contact></Contact>
         },
         {
             path:'/surverys',
