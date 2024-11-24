@@ -1,52 +1,70 @@
 import { useLoaderData, useParams } from "react-router-dom";
 import useAxiosPublic from "../../../components/Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const UpdateSurvey = () => {
   const { id } = useParams();
   const surveys = useLoaderData();
   const axiosPublic = useAxiosPublic()
-  // Check the options structure and validate
-  const options = surveys?.questions?.[0]?.options;
-  console.log(surveys);
+  // console.log(surveys);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
+  
     const title = form.title.value;
     const description = form.description.value;
     const category = form.category.value;
     const deadline = form.deadline.value;
-    const selectedOption = form.options.value; // The selected option
-
-    // Adjust the questions structure
+    const selectedOption = form.options.value; // "Yes" or "No"
+  
+    // Get the current vote counts
+    const currentOptions = surveys?.questions?.[0]?.options || { yes: 0, no: 0 };
+  
+    // Update the vote count based on the selected option
+    const updatedOptions = {
+      yes: selectedOption === "Yes" ? currentOptions.yes + 1 : currentOptions.yes,
+      no: selectedOption === "No" ? currentOptions.no + 1 : currentOptions.no,
+    };
+  
+    // Prepare updated questions
     const questions = [
       {
-        options: [selectedOption], // Send as an array
+        title: surveys.questions[0].title,
+        description: surveys.questions[0].description,
+        options: updatedOptions,
       },
     ];
   
     const updateDoc = {
-      title: title,
-      description: description,
-      category: category,
-      deadline: deadline,
-      questions: questions, // Proper structure
+      title,
+      description,
+      category,
+      deadline,
+      questions,
     };
+  
+    // console.log(updateDoc);
+  
+    //  send the PATCH request
+    axiosPublic.patch(`/survey/${id}`, updateDoc)
+      .then(res => {
+        console.log("Survey updated successfully:", res.data);
+        if(res.data.modifiedCount){
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
 
-    console.log(updateDoc);
-
-    axiosPublic.patch(`/survey/${id}`,updateDoc)
-    .then(res =>{
-      console.log(res.data)
-    })
-    .catch(err =>{
-      alert(err.message)
-    })
-
-
-
+      })
+      .catch(err => {
+        alert("Error updating survey:", err.message);
+      });
   };
-
   return (
     <div className="max-w-5xl mx-auto py-10 px-4">
       <h1 className="text-4xl font-bold text-center text-indigo-600 mb-8 animate-fade-in">

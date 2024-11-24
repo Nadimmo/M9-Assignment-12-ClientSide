@@ -22,7 +22,7 @@ const CreateSurvey = () => {
 
   const categories = [
     "Customer Feedback",
-    "Employee Satisfaction",
+    "Health & Wellness",
     "Market Research",
     "Academic Study",
     "Event Feedback",
