@@ -52,7 +52,7 @@ const SurveryPage = () => {
   };
 
   const sortedSurverys = getSortedSurveys()
-  console.log(sortedSurverys[0])
+  // console.log(sortedSurverys[0])
 
   return (
     <div className="container mx-auto p-4">
