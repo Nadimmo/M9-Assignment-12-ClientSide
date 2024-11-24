@@ -11,40 +11,48 @@ const SurveryPage = () => {
     ...new Set(surverys.map((survey) => survey.category)),
   ].sort();
 
-  // Function to sort surveys
   const getSortedSurveys = () => {
     if (sortBy === "votes") {
       return [...surverys].sort((a, b) => {
-        const totalVotesA = a.questions.reduce(
+        const totalVotesA = (a.questions || []).reduce(
           (acc, question) =>
             acc +
-            Object.values(question.options).reduce((sum, value) => sum + value, 0),
+            Object.values(question.options || {}).reduce(
+              (sum, value) => sum + value,
+              0
+            ),
           0
         );
-        const totalVotesB = b.questions.reduce(
+  
+        const totalVotesB = (b.questions || []).reduce(
           (acc, question) =>
             acc +
-            Object.values(question.options).reduce((sum, value) => sum + value, 0),
+            Object.values(question.options || {}).reduce(
+              (sum, value) => sum + value,
+              0
+            ),
           0
         );
+  
         return totalVotesB - totalVotesA; // Sort descending by votes
       });
     }
-
+  
     if (sortBy === "category") {
       return [...surverys].sort((a, b) =>
         a.category.localeCompare(b.category)
       );
     }
-
+  
     if (categories.includes(sortBy)) {
       return surverys.filter((survey) => survey.category === sortBy);
     }
-
+  
     return surverys; // Default sorting
   };
 
-  const sortedSurverys = getSortedSurveys();
+  const sortedSurverys = getSortedSurveys()
+  console.log(sortedSurverys[0])
 
   return (
     <div className="container mx-auto p-4">

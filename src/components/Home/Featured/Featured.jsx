@@ -4,10 +4,11 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Featured = () => {
   const [featuredSurveys, setFeaturedSurveys] = useState([]);
-  const axiosPublic = useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
 
   useEffect(() => {
-    axiosPublic.get("/featured")
+    axiosPublic
+      .get("/featured")
       .then((res) => setFeaturedSurveys(res.data))
       .catch((error) =>
         console.error("Error fetching featured surveys:", error)
@@ -16,10 +17,16 @@ const Featured = () => {
 
   const SurveyCard = ({ survey }) => {
     const totalVotes = survey.questions.reduce((acc, question) => {
-      return (
-        acc +
-        Object.values(question.options).reduce((sum, value) => sum + value, 0)
-      );
+      if (question.options && typeof question.options === "object") {
+        return (
+          acc +
+          Object.values(question.options).reduce(
+            (sum, value) => sum + (typeof value === "number" ? value : 0),
+            0
+          )
+        );
+      }
+      return acc; // If options are missing or not an object, skip
     }, 0);
 
     return (
@@ -43,7 +50,10 @@ const Featured = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6 text-center"> Featured Surveys🌟</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center">
+        {" "}
+        Featured Surveys🌟
+      </h2>
       <div className="lg:grid grid-cols-3 gap-6">
         {featuredSurveys.map((survey) => (
           <SurveyCard key={survey._id} survey={survey} />

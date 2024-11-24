@@ -1,17 +1,13 @@
 import { useLoaderData, useParams } from "react-router-dom";
+import useAxiosPublic from "../../../components/Hooks/useAxiosPublic";
 
-const UpdateSurvery = () => {
+const UpdateSurvey = () => {
   const { id } = useParams();
   const surveys = useLoaderData();
-
-  // Check if the data is loaded correctly and what the structure is
-  console.log(surveys);
-
+  const axiosPublic = useAxiosPublic()
   // Check the options structure and validate
   const options = surveys?.questions?.[0]?.options;
-
-  // Check if options is an array before mapping over it
-  const isOptionsArray = Array.isArray(options);
+  console.log(surveys);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,8 +16,35 @@ const UpdateSurvery = () => {
     const description = form.description.value;
     const category = form.category.value;
     const deadline = form.deadline.value;
+    const selectedOption = form.options.value; // The selected option
 
-    console.log(title, description, category, deadline);
+    // Adjust the questions structure
+    const questions = [
+      {
+        options: [selectedOption], // Send as an array
+      },
+    ];
+  
+    const updateDoc = {
+      title: title,
+      description: description,
+      category: category,
+      deadline: deadline,
+      questions: questions, // Proper structure
+    };
+
+    console.log(updateDoc);
+
+    axiosPublic.patch(`/survey/${id}`,updateDoc)
+    .then(res =>{
+      console.log(res.data)
+    })
+    .catch(err =>{
+      alert(err.message)
+    })
+
+
+
   };
 
   return (
@@ -93,26 +116,27 @@ const UpdateSurvery = () => {
             />
           </div>
 
-          {/* Options - Only display if options is an array */}
+          {/* Options - Only show "Yes" and "No" */}
           <div>
-            <label className="block font-semibold text-gray-700">
-              Options
-            </label>
-            {isOptionsArray ? (
-              <select
-                name="options"
-                className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
-                required
+            <label className="block font-semibold text-gray-700">Options</label>
+            <select
+              name="options"
+              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              required
+            >
+              <option
+                defaultValue={surveys?.questions?.[0]?.options.yes}
+                value="Yes"
               >
-                {options.map((option, index) => (
-                  <option key={index} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <p className="text-red-600">Invalid options data.</p>
-            )}
+                Yes
+              </option>
+              <option
+                defaultValue={surveys?.questions?.[0]?.options.no}
+                value="No"
+              >
+                No
+              </option>
+            </select>
           </div>
         </div>
 
@@ -128,4 +152,4 @@ const UpdateSurvery = () => {
   );
 };
 
-export default UpdateSurvery;
+export default UpdateSurvey;

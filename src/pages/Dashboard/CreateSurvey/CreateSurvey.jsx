@@ -9,8 +9,8 @@ const CreateSurvey = () => {
     description: "",
     category: "",
     deadline: "",
-    email: "", // New field for email
-    username: "", // New field for username
+    email: "",
+    username: "",
     questions: [
       {
         title: "",
@@ -20,7 +20,6 @@ const CreateSurvey = () => {
     ],
   });
 
-  // Predefined categories
   const categories = [
     "Customer Feedback",
     "Employee Satisfaction",
@@ -41,12 +40,19 @@ const CreateSurvey = () => {
     setSurvey({ ...survey, questions: updatedQuestions });
   };
 
+  const handleOptionChange = (e, index, option) => {
+    const { value } = e.target;
+    const updatedQuestions = [...survey.questions];
+    updatedQuestions[index].options[option] = parseInt(value, 10) || 0;
+    setSurvey({ ...survey, questions: updatedQuestions });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const surveyData = {
       ...survey,
-      status: "publish", // Default status handled here
+      status: "publish",
     };
 
     try {
@@ -79,12 +85,12 @@ const CreateSurvey = () => {
 
   return (
     <div className="max-w-5xl mx-auto py-10 px-4">
-      <h1 className="text-4xl font-bold text-center text-indigo-600 mb-8 animate-fade-in">
+      <h1 className="text-4xl font-bold text-center text-indigo-600 mb-8">
         Create a New Survey
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="space-y-8 bg-white shadow-lg rounded-lg p-8 animate-slide-up"
+        className="space-y-8 bg-white shadow-lg rounded-lg p-8"
       >
         {/* User Details */}
         <div className="space-y-4">
@@ -95,7 +101,7 @@ const CreateSurvey = () => {
               name="username"
               value={survey.username}
               onChange={handleSurveyChange}
-              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              className="w-full p-3 border rounded-lg"
               placeholder="Enter your username"
               required
             />
@@ -107,7 +113,7 @@ const CreateSurvey = () => {
               name="email"
               value={survey.email}
               onChange={handleSurveyChange}
-              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              className="w-full p-3 border rounded-lg"
               placeholder="Enter your email"
               required
             />
@@ -125,7 +131,7 @@ const CreateSurvey = () => {
               name="title"
               value={survey.title}
               onChange={handleSurveyChange}
-              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              className="w-full p-3 border rounded-lg"
               placeholder="Enter the survey title"
               required
             />
@@ -138,7 +144,7 @@ const CreateSurvey = () => {
               name="description"
               value={survey.description}
               onChange={handleSurveyChange}
-              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              className="w-full p-3 border rounded-lg"
               rows="4"
               placeholder="Enter a brief description of the survey"
               required
@@ -150,7 +156,7 @@ const CreateSurvey = () => {
               name="category"
               value={survey.category}
               onChange={handleSurveyChange}
-              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              className="w-full p-3 border rounded-lg"
               required
             >
               <option value="">Select a Category</option>
@@ -168,7 +174,7 @@ const CreateSurvey = () => {
               name="deadline"
               value={survey.deadline}
               onChange={handleSurveyChange}
-              className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+              className="w-full p-3 border rounded-lg"
               required
             />
           </div>
@@ -182,7 +188,7 @@ const CreateSurvey = () => {
           {survey.questions.map((q, index) => (
             <div
               key={index}
-              className="p-4 border rounded-lg bg-gray-50 shadow-sm hover:shadow-lg transition duration-200 mb-4"
+              className="p-4 border rounded-lg bg-gray-50 shadow-sm mb-4"
             >
               <div>
                 <label className="block font-semibold text-gray-700">
@@ -193,7 +199,7 @@ const CreateSurvey = () => {
                   name="title"
                   value={q.title}
                   onChange={(e) => handleQuestionChange(e, index)}
-                  className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+                  className="w-full p-3 border rounded-lg"
                   placeholder="Enter the question title"
                   required
                 />
@@ -206,11 +212,37 @@ const CreateSurvey = () => {
                   name="description"
                   value={q.description}
                   onChange={(e) => handleQuestionChange(e, index)}
-                  className="w-full p-3 border rounded-lg focus:ring focus:ring-indigo-300 transition duration-200"
+                  className="w-full p-3 border rounded-lg"
                   rows="2"
                   placeholder="Enter the question description"
                   required
                 />
+              </div>
+              <div className="mt-4 grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block font-semibold text-gray-700">Yes</label>
+                  <input
+                    type="number"
+                    value={q.options.yes}
+                    onChange={(e) => handleOptionChange(e, index, "yes")}
+                    className="w-full p-3 border rounded-lg"
+                    placeholder="Votes for Yes"
+                    min="0"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-gray-700">No</label>
+                  <input
+                    type="number"
+                    value={q.options.no}
+                    onChange={(e) => handleOptionChange(e, index, "no")}
+                    className="w-full p-3 border rounded-lg"
+                    placeholder="Votes for No"
+                    min="0"
+                    required
+                  />
+                </div>
               </div>
             </div>
           ))}
@@ -219,7 +251,7 @@ const CreateSurvey = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-3 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition duration-200"
+          className="w-full py-3 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700"
         >
           Submit Survey
         </button>
