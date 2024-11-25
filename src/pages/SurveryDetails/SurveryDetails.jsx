@@ -5,7 +5,7 @@ import useAxiosPublic from "../../components/Hooks/useAxiosPublic";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const SurveyDetails = () => {
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
   const survey = useLoaderData();
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ const SurveyDetails = () => {
   );
 
   const [showModal, setShowModal] = useState(false);
-  const [report, setReport] = useState({ title: "", description: "" });
 
   // Handle answer selection
   const handleAnswerChange = (index, value) => {
@@ -81,30 +80,37 @@ const SurveyDetails = () => {
   };
 
   // Handle report submission
-  const handleSubmitReport = () => {
+  const handleSubmitReport = (e) => {
+    e.preventDefault();
+    const title = e.target.title.value;
+    const description = e.target.description.value;
+    const userEmail =  user?.email 
+
+    const info = { title: title, description: description, email: userEmail };
     // console.log("Report Submitted:", report);
     setShowModal(false);
-    axiosPublic.post('reports', report)
-    .then(res =>{
-      if(res.data.insertedId){
-        Swal.fire({
-          icon: "success",
-          title: "Report Submitted",
-          text: "Your survey report has been submitted.",
-        });
-      }
-    })
-    .catch(err=>{
-      alert(err.message)
-    })
-
+    axiosPublic
+      .post("reports", info)
+      .then((res) => {
+        if (res.data.insertedId) {
+          Swal.fire({
+            icon: "success",
+            title: "Report Submitted",
+            text: "Your survey report has been submitted.",
+          });
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
 
-  // Handle form input for the modal
-  const handleReportChange = (e) => {
-    const { name, value } = e.target;
-    setReport({ ...report, [name]: value });
-  };
+  // // Handle form input for the modal
+  // const handleReportChange = (e) => {
+  //
+  //   const { name, value } = e.target;
+  //   setReport({ ...report, [name]: value },userEmail);
+  // };
 
   return (
     <div className="max-w-4xl mx-auto py-12">
@@ -192,14 +198,12 @@ const SurveyDetails = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
             <h2 className="text-2xl font-bold mb-4">Survey Report</h2>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-4" onSubmit={handleSubmitReport}>
               <div>
                 <label className="block font-semibold mb-1">Survey Title</label>
                 <input
                   type="text"
                   name="title"
-                  value={report.title}
-                  onChange={handleReportChange}
                   className="w-full p-2 border rounded-md"
                   placeholder="Enter survey title"
                   required
@@ -211,8 +215,6 @@ const SurveyDetails = () => {
                 </label>
                 <textarea
                   name="description"
-                  value={report.description}
-                  onChange={handleReportChange}
                   className="w-full p-2 border rounded-md"
                   rows="4"
                   placeholder="Enter survey description"
@@ -220,7 +222,6 @@ const SurveyDetails = () => {
                 />
               </div>
               <button
-                onClick={handleSubmitReport}
                 className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700"
               >
                 Submit Report

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Featured = () => {
   const [featuredSurveys, setFeaturedSurveys] = useState([]);
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    axiosPublic
+    axiosSecure
       .get("/featured")
       .then((res) => setFeaturedSurveys(res.data))
       .catch((error) =>

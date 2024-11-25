@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Latest = () => {
   const [latestSurveys, setLatestSurveys] = useState([]);
-  const axiosPublic = useAxiosPublic()
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    axiosPublic.get("/latest")
+    axiosSecure.get("/latest")
       .then((res) => setLatestSurveys(res.data))
       .catch((error) =>
         console.error("Error fetching latest surveys:", error)
