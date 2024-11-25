@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const PricePage = () => {
   return (
@@ -37,7 +38,7 @@ const PricePage = () => {
 							<span>Tristique enim nec</span>
 						</li>
 					</ul>
-					<button type="button" className="inline-block px-5 py-3 font-semibold tracking-wider text-center rounded dark:bg-violet-600 dark:text-gray-50">Get Started</button>
+					<Link to={'/payment'}><button type="button" className="inline-block px-5 py-3 font-semibold tracking-wider text-center rounded dark:bg-violet-600 dark:text-gray-50">Get Started</button></Link>
 				</div>
 			</div>
 			<div className="flex w-full mb-8 sm:px-4 md:w-1/2 lg:w-1/3 lg:mb-0">
@@ -75,7 +76,7 @@ const PricePage = () => {
 							<span>Aenean et lectus blandit</span>
 						</li>
 					</ul>
-					<a rel="noopener noreferrer" href="#" className="inline-block w-full px-5 py-3 font-bold tracking-wider text-center rounded dark:bg-gray-100 dark:text-violet-600">Get Started</a>
+					<Link to={'/payment'}><button rel="noopener noreferrer" href="#" className="inline-block w-full px-5 py-3 font-bold tracking-wider text-center rounded dark:bg-gray-100 dark:text-violet-600">Get Started</button></Link>
 				</div>
 			</div>
 			<div className="flex w-full mb-8 sm:px-4 md:w-1/2 lg:w-1/3 lg:mb-0">
@@ -119,7 +120,7 @@ const PricePage = () => {
 							<span>Vivamus ut lectus ex</span>
 						</li>
 					</ul>
-					<a rel="noopener noreferrer" href="#" className="inline-block w-full px-5 py-3 font-semibold tracking-wider text-center rounded dark:bg-violet-600 dark:text-gray-50">Get Started</a>
+					<Link to={'/payment'}><button rel="noopener noreferrer" href="#" className="inline-block w-full px-5 py-3 font-semibold tracking-wider text-center rounded dark:bg-violet-600 dark:text-gray-50">Get Started</button></Link>
 				</div>
 			</div>
 		</div>

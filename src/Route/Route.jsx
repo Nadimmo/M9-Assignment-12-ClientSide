@@ -22,6 +22,7 @@ import ManageUser from '../pages/Dashboard/ManageUser/ManageUser';
 import About from '../pages/About/About';
 import Contact from '../pages/Contact/Contact';
 import PricePage from '../pages/PricePage/PricePage';
+import Payment from '../pages/PricePage/Payment';
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
         {
           path:'/login',
           element: <Login></Login>
+        },
+        {
+          path:'/payment',
+          element: <Payment></Payment>
         }
     ]
    
