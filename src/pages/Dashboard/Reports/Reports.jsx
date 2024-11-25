@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Reports = () => {
   const { reports } = useReports();
-  console.log(reports);
+  // console.log(reports);
   return (
     <div className="max-w-6xl mx-auto py-12">
       <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600">

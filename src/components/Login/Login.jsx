@@ -40,45 +40,61 @@ const Login = () => {
   };
 
 
-  const handlerGoogle = (e)=>{
-    e.preventDefault()
+  const handlerGoogle = (e) => {
+    e.preventDefault();
     loginWithGoogle()
-    .then(res =>{
-      // console.log(res.data)
-      if(res.user){
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: ` User Login Successfully`,
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }
-    })
-    .catch(err =>{
-      alert(err.message)
-    })
-  }
+      .then((res) => {
+        // console.log(res.user.email)
+        const userInfo = {
+          name: user?.displayName,
+          email: user?.email,
+        };
+        if (res.user) {
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `${name} Login Successfully`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
 
-  const handlerGithub = (e)=>{
-    e.preventDefault()
+  const handlerGithub = (e) => {
+    e.preventDefault();
     loginWithGithub()
-    .then(res =>{
-      // console.log(res.data)
-      if(res.user){
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: `User Login Successfully`,
-          showConfirmButton: false,
-          timer: 1500
+    .then((res) => {
+      // console.log(res.user.email)
+      const userInfo = {
+        name: user?.displayName,
+        email: user?.email,
+      };
+      if (res.user) {
+        axiosPublic.post("/users", userInfo).then((res) => {
+          if (res.data) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `${name} Login Successfully`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
         });
       }
     })
-    .catch(err =>{
-      alert(err.message)
-    })
-  }
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
 
 
 

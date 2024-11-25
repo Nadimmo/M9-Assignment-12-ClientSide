@@ -51,14 +51,22 @@ const Register = () => {
     e.preventDefault();
     loginWithGoogle()
       .then((res) => {
-        // console.log(res.data)
+        // console.log(res.user.email)
+        const userInfo = {
+          name: user?.displayName,
+          email: user?.email,
+        };
         if (res.user) {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: `${user.displayName} Register Successfully`,
-            showConfirmButton: false,
-            timer: 1500,
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `${name} Register Successfully`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
           });
         }
       })
@@ -70,18 +78,26 @@ const Register = () => {
   const handlerGithub = (e) => {
     e.preventDefault();
     loginWithGithub()
-      .then((res) => {
-        // console.log(res.data)
-        if (res.user) {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: `${user.displayName} Register Successfully`,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      })
+    .then((res) => {
+      // console.log(res.user.email)
+      const userInfo = {
+        name: user?.displayName,
+        email: user?.email,
+      };
+      if (res.user) {
+        axiosPublic.post("/users", userInfo).then((res) => {
+          if (res.data) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `${name} Register Successfully`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+      }
+    })
       .catch((err) => {
         alert(err.message);
       });
