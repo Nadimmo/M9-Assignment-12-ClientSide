@@ -12,8 +12,8 @@ dist
 dist-ssr
 *.local
 assets
-Firebase
-firebase.config
+
+.env.local
 
 # Editor directories and files
 .vscode/*

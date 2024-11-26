@@ -11,7 +11,7 @@ const ManageUser = () => {
   const [filterRole, setFilterRole] = useState("All"); // State for dropdown filter
 
   // Debugging: Log users
-  console.log("All Users:", users);
+  // console.log("All Users:", users);
 
   const handlerMakeAdmin = (user) => {
     axiosSecure
@@ -63,7 +63,7 @@ const ManageUser = () => {
       });
 
   // Debugging: Log filtered users
-  console.log("Filtered Users:", filteredUsers);
+  // console.log("Filtered Users:", filteredUsers);
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
