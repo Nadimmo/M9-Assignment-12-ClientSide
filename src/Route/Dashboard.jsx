@@ -93,14 +93,7 @@ const Dashboard = () => {
               My Reports
             </NavLink>
           </li>
-          <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
-            <NavLink
-              to={"/dashboard/user/comments"}
-              className="block px-4 py-2 text-sm font-medium"
-            >
-              My Comments
-            </NavLink>
-          </li>
+          
           <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
             <NavLink to={"/"} className="block px-4 py-2 text-sm font-medium">
               Home

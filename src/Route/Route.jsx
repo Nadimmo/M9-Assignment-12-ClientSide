@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         },
         {
           path:'/price',
-          element: <PricePage></PricePage>
+          element:<PrivateRoute> <PricePage></PricePage></PrivateRoute>
         },
         {
             path:'/surverys',
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         },
         {
           path:'/surverys/:id',
-          element: <SurveryDetails></SurveryDetails>,
+          element: <PrivateRoute><SurveryDetails></SurveryDetails></PrivateRoute>,
           loader: ({params})=>fetch(`http://localhost:5000/surverys/${params.id}`)
 
         },

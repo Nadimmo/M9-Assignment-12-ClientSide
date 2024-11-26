@@ -35,7 +35,7 @@ const ManageUser = () => {
 
   const handlerMakeSurvey = (user) => {
     axiosSecure
-      .patch(`/surverys/admin/${user._id}`)
+      .patch(`/surverys/surveyor/${user._id}`)
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           refetch();
@@ -55,9 +55,12 @@ const ManageUser = () => {
 
   // Filter users based on the selected role
   const filteredUsers =
-    filterRole === "All"
-      ? users
-      : users.filter((user) => user.role === filterRole);
+  filterRole === "All"
+    ? users
+    : users.filter((user) => {
+        const userRole = user.role 
+        return userRole === filterRole;
+      });
 
   // Debugging: Log filtered users
   console.log("Filtered Users:", filteredUsers);
@@ -87,8 +90,8 @@ const ManageUser = () => {
           className="p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400"
         >
           <option value="All">All</option>
-          <option value="Surveyor">Surveyor</option>
-          <option value="Admin">Admin</option>
+          <option value="surveyor">Surveyor</option>
+          <option value="admin">Admin</option>
         </select>
       </div>
 
