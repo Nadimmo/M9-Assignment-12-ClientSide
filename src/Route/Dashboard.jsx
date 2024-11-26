@@ -17,9 +17,6 @@ const Dashboard = () => {
           {/* Conditional Dashboard Sections */}
           {isAdmin ? (
             <>
-              <h2 className="text-lg font-semibold mb-3 text-gray-800">
-                Admin Dashboard
-              </h2>
               <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
                 <NavLink
                   to={"/dashboard/admin/users"}
@@ -47,9 +44,6 @@ const Dashboard = () => {
             </>
           ) : isSurveyor ? (
             <>
-              <h2 className="text-lg font-semibold mb-3 text-gray-800">
-                Surveyor Dashboard
-              </h2>
               <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
                 <NavLink
                   to={"/dashboard/surveyor/create"}
@@ -69,9 +63,6 @@ const Dashboard = () => {
             </>
           ) : (
             <>
-              <h2 className="text-lg font-semibold mb-3 text-gray-800">
-                User Dashboard
-              </h2>
               <li className="transition-all duration-300 hover:bg-[#06b6d4] hover:text-white rounded-lg">
                 <NavLink
                   to={"/dashboard/user/surveys"}

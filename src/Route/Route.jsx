@@ -23,6 +23,8 @@ import About from '../pages/About/About';
 import Contact from '../pages/Contact/Contact';
 import PricePage from '../pages/PricePage/PricePage';
 import Payment from '../pages/PricePage/Payment';
+import PaymentHistory from '../pages/Dashboard/PaymentHistory/PaymentHistory';
+import StatusPage from '../pages/Dashboard/StatusPage/StatusPage';
 
 const router = createBrowserRouter([
   {
@@ -113,6 +115,14 @@ const router = createBrowserRouter([
       {
         path:'admin/users',
         element:<ManageUser></ManageUser>
+      },
+      {
+        path: 'admin/payments',
+        element: <PaymentHistory></PaymentHistory>
+      },
+      {
+        path:'admin/surveys',
+        element: <StatusPage></StatusPage>
       }
     ]
   }
