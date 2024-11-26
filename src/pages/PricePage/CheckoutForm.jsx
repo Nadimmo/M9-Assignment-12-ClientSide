@@ -12,7 +12,7 @@ const CheckOutForm = () => {
   const [cartError, setCartError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
-  const totalPrice = 560;
+  const totalPrice = 25;
 
   useEffect(() => {
     if (totalPrice > 0) {
