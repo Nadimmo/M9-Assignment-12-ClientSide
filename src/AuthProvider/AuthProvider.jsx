@@ -53,6 +53,7 @@ const AuthProvider = ({ children }) => {
   const logOut = () => {
     setLoader(true);
     return signOut(auth);
+    localStorage.removeItem("access-token");
   };
 
   useEffect(() => {

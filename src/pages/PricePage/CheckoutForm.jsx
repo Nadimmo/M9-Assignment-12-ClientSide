@@ -24,6 +24,8 @@ const CheckOutForm = () => {
     }
   }, [axiosSecure, totalPrice]);
 
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -46,7 +48,7 @@ const CheckOutForm = () => {
     } else {
       setCartError("");
     }
-
+//create payment intent
     const { paymentIntent, error: cartError } = await stripe.confirmCardPayment(
       clientSecret,
       {
@@ -59,7 +61,7 @@ const CheckOutForm = () => {
         },
       }
     );
-
+//send data in database 
     if (cartError) {
       console.log("error", cartError);
     } else {

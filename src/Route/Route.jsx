@@ -54,7 +54,7 @@ const router = createBrowserRouter([
         {
           path:'/surverys/:id',
           element: <PrivateRoute><SurveryDetails></SurveryDetails></PrivateRoute>,
-          loader: ({params})=>fetch(`http://localhost:5000/surverys/${params.id}`)
+          loader: ({params})=>fetch(`https://assignment-12-server-side-eight.vercel.app/surverys/${params.id}`)
 
         },
         {
@@ -88,12 +88,12 @@ const router = createBrowserRouter([
       {
         path:'surveyor/surveys/:id',
         element: <DetailsSurveyos></DetailsSurveyos>,
-        loader: ({params})=>fetch(`http://localhost:5000/surverys/${params.id}`)
+        loader: ({params})=>fetch(`https://assignment-12-server-side-eight.vercel.app/surverys/${params.id}`)
       },
       {
         path:'surveyor/update/:id',
         element: <UpdateSurvery></UpdateSurvery>,
-        loader: ({params})=>fetch(`http://localhost:5000/surverys/${params.id}`)
+        loader: ({params})=>fetch(`https://assignment-12-server-side-eight.vercel.app/surverys/${params.id}`)
       },
       // user dashboard
       {
@@ -108,7 +108,7 @@ const router = createBrowserRouter([
       {
         path:'user/surveys/:id',
         element: <ViewParticipation></ViewParticipation>,
-        loader: ({params})=>fetch(`http://localhost:5000/surverys/${params.id}`)
+        loader: ({params})=>fetch(`https://assignment-12-server-side-eight.vercel.app/surverys/${params.id}`)
 
       },
       // admin dashboard 
