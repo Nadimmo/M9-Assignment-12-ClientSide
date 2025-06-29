@@ -3,9 +3,13 @@ import { SiLimesurvey } from "react-icons/si";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import useAdmin from "../Hooks/useAdmin";
+import useSurveyor from "../Hooks/useSurveyor";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
+  const [isSurveyor] = useSurveyor();
 
   const Links = (
     <>
@@ -41,14 +45,38 @@ const Navbar = () => {
           Pricing
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to={"/dashboard/surveyor/create"}
-          className="text-lg text-gray-700 hover:text-blue-600 font-medium"
-        >
-          Dashboard
-        </NavLink>
-      </li>
+      {user && isAdmin && 
+        <li>
+          <NavLink
+            to={"/dashboard/admin/users"}
+            className="text-lg text-gray-700 hover:text-blue-600 font-medium"
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      }
+      {user && isSurveyor &&
+        <li>
+          <NavLink
+            to={"/dashboard/surveyor/create"}
+            className="text-lg text-gray-700 hover:text-blue-600 font-medium"
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      }
+      {user && !isAdmin && !isSurveyor &&
+        <li>
+          <NavLink
+            to={"/dashboard/user/my-reports"}
+            className="text-lg text-gray-700 hover:text-blue-600 font-medium"
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      }
+
+      
       <li>
         <NavLink
           to={"/contact"}
@@ -79,7 +107,7 @@ const Navbar = () => {
 
   return (
     <div className="bg-gray-100 shadow-md">
-      <div className="navbar container mx-auto py-4 px-4 lg:px-8">
+      <div className="navbar container mx-auto py-4  ">
         {/* Navbar Start */}
         <div className="navbar-start">
           <div className="dropdown">
@@ -112,7 +140,7 @@ const Navbar = () => {
           </div>
           <Link
             to={"/"}
-            className="text-4xl flex items-center font-bold text-[#6e54b5] hover:text-blue-600 lg:ml-2"
+            className="lg:text-4xl flex items-center font-bold text-[#6e54b5] hover:text-blue-600 lg:ml-2"
           >
             <SiLimesurvey className="mr-2" /> SurveyPro
           </Link>
@@ -120,7 +148,7 @@ const Navbar = () => {
 
         {/* Navbar Center */}
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal space-x-6">{Links}</ul>
+          <ul className="menu menu-horizontal space-x-4">{Links}</ul>
         </div>
 
         {/* Navbar End */}

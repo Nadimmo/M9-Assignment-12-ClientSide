@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../components/Hooks/useAdmin";
 import useSurveyor from "../components/Hooks/useSurveyor";
-
+import { FaBars } from "react-icons/fa";
 const Dashboard = () => {
   const [isAdmin] = useAdmin();
   const [isSurveyor] = useSurveyor();
+  const [isOpen, setIsOpen] = useState(false);
 
   // console.log("admin", isAdmin, "surveyor", isSurveyor);
 
   return (
+    <div className="min-h-screen">
+      <button className='md:hidden p-3 bg-gradient-to-r from-[#F7A582] via-[#FBBF93] to-[#F9E7DA]hover:bg-gray-700 transition duration-300' onClick={() => setIsOpen(!isOpen)}>
+        <FaBars size={24} />
+      </button>
     <div className="flex lg:flex-row">
       {/* Sidebar */}
-      <div className="w-full min-h-screen lg:w-72 p-4 bg-gradient-to-r from-[#F7A582] via-[#FBBF93] to-[#F9E7DA] text-black">
+      <div className={`w-full min-h-screen lg:w-72 p-4 bg-gradient-to-r from-[#F7A582] via-[#FBBF93] to-[#F9E7DA] text-black ${isOpen? "block":"hidden"} md:block`} >
         <ul className="space-y-2">
           {/* Conditional Dashboard Sections */}
           {isAdmin ? (
@@ -95,6 +100,7 @@ const Dashboard = () => {
       <div className="flex-1 p-6 bg-gray-50 w-full">
         <Outlet />
       </div>
+    </div>
     </div>
   );
 };

@@ -12,6 +12,7 @@ const Login = () => {
   const axiosPublic = useAxiosPublic()
   const navigate = useNavigate()
   const location = useLocation()
+  // console.log(location.pathname)
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -31,7 +32,7 @@ const Login = () => {
         });
         form.reset()
       }
-      navigate(location?.state? location?.state:'/')
+      navigate(location?.pathname? location?.pathname:'/')
     })
     .catch(err =>{
       alert(err.message)
