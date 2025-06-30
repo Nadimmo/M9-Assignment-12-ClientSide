@@ -140,15 +140,15 @@ const Navbar = () => {
           </div>
           <Link
             to={"/"}
-            className="lg:text-4xl flex items-center font-bold text-[#6e54b5] hover:text-blue-600 lg:ml-2"
+            className="lg:text-2xl flex items-center font-bold text-[#6e54b5] hover:text-blue-600 "
           >
-            <SiLimesurvey className="mr-2" /> SurveyPro
+            <SiLimesurvey className="mr-1" /> SurveyPro
           </Link>
         </div>
 
         {/* Navbar Center */}
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal space-x-4">{Links}</ul>
+          <ul className="menu menu-horizontal space-x-3">{Links}</ul>
         </div>
 
         {/* Navbar End */}

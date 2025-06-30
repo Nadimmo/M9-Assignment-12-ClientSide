@@ -30,20 +30,31 @@ const Featured = () => {
     }, 0);
 
     return (
-      <div
-        key={survey._id}
-        className="bg-gradient-to-r from-indigo-400 to-blue-400 text-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-200 lg:mt-0 mt-4"
-      >
-        <div className="card-body">
-          <h2 className="card-title">{survey.title}</h2>
-          <p>{survey.description}</p>
-          <div className="card-actions mt-4 justify-end">
-            <p className="text-xl">Total Vote: {totalVotes}</p>
-            <Link className="btn bg-[#FC8F54]" to={`/surverys/${survey._id}`}>
-              Survey Details
-            </Link>
+
+      <div class="flex items-center justify-center p-4 ">
+        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl overflow-hidden lg:h-[250px] ">
+          <div class="p-4 text-white">
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <h2 class="text-xl font-bold mb-2">{survey.title}</h2>
+                <p class="text-slate-300 text-sm mb-4">{survey.description}</p>
+              </div>
+              
+            </div>
+
+            <div class="flex items-center justify-between mt-6">
+              <Link to={`/surverys/${survey._id}`} class="bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white font-medium lg:py-2 lg:px-4 p-2 rounded-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">
+                View Survey
+              </Link>
+
+              <div class="text-sm text-slate-300 relative pl-6">
+                Total Votes: <span class="font-bold text-blue-400">{totalVotes}</span>
+               
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     );
   };
@@ -54,7 +65,7 @@ const Featured = () => {
         {" "}
         Featured Surveys🌟
       </h2>
-      <div className="lg:grid grid-cols-3 gap-6">
+      <div className="lg:grid grid-cols-3 gap-6 ">
         {featuredSurveys.map((survey) => (
           <SurveyCard key={survey._id} survey={survey} />
         ))}
